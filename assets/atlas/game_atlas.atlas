@@ -1,0 +1,9 @@
+game_atlas.png
+size:512,512
+repeat:none
+Castle_Red
+bounds:2,196,320,256
+House_Blue
+bounds:2,2,128,192
+Tower_Blue
+bounds:324,196,128,256
