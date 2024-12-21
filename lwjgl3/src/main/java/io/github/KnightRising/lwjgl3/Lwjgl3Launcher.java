@@ -3,6 +3,8 @@ package io.github.KnightRising.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import io.github.KnightRising.KnightRising;
+import io.github.KnightRising.camera.Orthographic;
+import io.github.KnightRising.camera.Perspective;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -12,7 +14,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new KnightRising(), getDefaultConfiguration());
+        return new Lwjgl3Application(new Perspective(), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
