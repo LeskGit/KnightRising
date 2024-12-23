@@ -1,7 +1,9 @@
 package io.github.KnightRising;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,53 +11,53 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.Gdx.gl;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class KnightRising extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Sprite tower;
-    private Sprite castle;
-    private TextureAtlas atlas;
+public class KnightRising extends Game {
 
+    private SpriteBatch batch;
+    private Sprite player;
+    private TextureAtlas atlas;
     private OrthographicCamera camera;
-    private float VIEWPORT_WIDTH = 1000f;
-    private float VIEWPORT_HEIGHT = 1000f;
+    private FitViewport viewport;
+    final float VIEWPORT_WIDTH = 500f;
+    final float VIEWPORT_HEIGHT = 500f;
 
     @Override
     public void create() {
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
-
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT * height/width);
-        camera.position.set(0, 0, 0);
-        camera.update();
-
-        atlas = new TextureAtlas(Utils.getInternalPath("atlas/game_atlas.atlas"));
         batch = new SpriteBatch();
-        tower = new Sprite(atlas.findRegion("Castle_Red"));
-
+        atlas = new TextureAtlas(Utils.getInternalPath("atlas/player_atlas.atlas"));
+        player = new Sprite(atlas.findRegion("player_idle_1"));
+        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        viewport = new FitViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
+        setScreen(new GameScreen(this));
     }
 
-    @Override
     public void render() {
-        gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        tower.draw(batch);
-        batch.end();
+        super.render();
     }
 
-    @Override
     public void dispose() {
         batch.dispose();
+        atlas.dispose();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        camera.viewportWidth = VIEWPORT_WIDTH;
-        camera.viewportHeight = VIEWPORT_HEIGHT * height/width;
-        camera.update();
+    public Sprite getPlayer() {
+        return this.player;
+    }
+
+    public FitViewport getViewport() {
+        return this.viewport;
+    }
+
+    public OrthographicCamera getCamera() {
+        return this.camera;
+    }
+
+    public SpriteBatch getBatch() {
+        return this.batch;
     }
 }
