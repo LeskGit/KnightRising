@@ -24,15 +24,12 @@ public class GameScreen implements Screen {
     public GameScreen(KnightRising game) {
         this.game = game;
         this.background = new Texture(Utils.getInternalPath("background.png"));
+
     }
-
-
-
-
 
     @Override
     public void show() {
-
+        this.game.getPlayer().setPosition(155, 115);
     }
 
     @Override
@@ -101,8 +98,6 @@ public class GameScreen implements Screen {
         game.getCamera().position.set(cameraX, cameraY, 0);
         game.getCamera().update();
 
-
-
     }
 
     private void playerLimit() {
@@ -133,8 +128,10 @@ public class GameScreen implements Screen {
         game.getViewport().apply();
         game.getBatch().setProjectionMatrix(game.getViewport().getCamera().combined);
         game.getBatch().begin();
+
         game.getBatch().draw(background, 0, 0, game.getViewport().getWorldWidth(), game.getViewport().getWorldHeight());
         game.getPlayer().draw(game.getBatch());
+
         game.getBatch().end();
     }
     @Override
