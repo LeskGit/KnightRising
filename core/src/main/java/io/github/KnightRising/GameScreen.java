@@ -7,7 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import static com.badlogic.gdx.Gdx.gl;
 
@@ -15,21 +19,35 @@ import static com.badlogic.gdx.Gdx.gl;
 public class GameScreen implements Screen {
 
     private KnightRising game;
-    private Texture background;
-    final float LIMI_DOWN = 0f;
-    final float LIMI_UP = 200f;
-    final float LIMI_RIGHT = 200f;
-    final float LIMI_LEFT = 0f;
+    private SpriteBatch batch;
+    private OrthographicCamera camera;
+    private FitViewport viewport;
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    float worldWidth;
+    float worldHeight;
+    final float unitScale = 1f / 32f;
+
+
 
     public GameScreen(KnightRising game) {
         this.game = game;
-        this.background = new Texture(Utils.getInternalPath("background.png"));
+        this.batch = new SpriteBatch();
+        this.map = new TmxMapLoader().load("Map/gameMap.tmx");
+
+        this.mapRenderer = new OrthogonalTiledMapRenderer(map);
+
+        worldHeight = map.getProperties().get("height", Integer.class) * 32f;
+        worldWidth = map.getProperties().get("width", Integer.class) * 32f;
+        this.camera = new OrthographicCamera();
+        this.viewport = new FitViewport(worldWidth, worldHeight, camera);
 
     }
 
     @Override
     public void show() {
-        this.game.getPlayer().setPosition(155, 115);
+        this.game.getPlayer().setScale(1.3f);
+        this.game.getPlayer().setPosition(worldWidth/2, worldHeight/2);
     }
 
     @Override
@@ -56,7 +74,7 @@ public class GameScreen implements Screen {
         }
 
         else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-        this.game.getPlayer().translateY(-speed * delta);}
+            this.game.getPlayer().translateY(-speed * delta);}
     }
 
     public void logic() {
@@ -69,34 +87,34 @@ public class GameScreen implements Screen {
         float x = game.getPlayer().getX();
         float y = game.getPlayer().getY();
 
-        game.getCamera().position.set(x, y, 0);
-        game.getCamera().zoom = 0.5f;
-        game.getCamera().update();
+        camera.position.set(x, y, 0);
+        camera.zoom = 0.8f;
+        camera.update();
 
 
     }
 
     private void cameraLimit() {
-        float cameraX = game.getCamera().position.x;
-        float cameraY = game.getCamera().position.y;
+        float cameraX = camera.position.x;
+        float cameraY = camera.position.y;
 
-        if (cameraX < LIMI_LEFT) {
-            cameraX = LIMI_LEFT;
+        if (cameraX < 0) {
+            cameraX = 0;
         }
-        else if (cameraX > LIMI_RIGHT) {
-            cameraX = LIMI_RIGHT;
-        }
-
-        else if (cameraY < LIMI_DOWN) {
-            cameraY = LIMI_DOWN;
+        else if (cameraX > worldWidth) {
+            cameraX = worldWidth;
         }
 
-        else if (cameraY > LIMI_UP) {
-            cameraY = LIMI_UP;
+        else if (cameraY < 0) {
+            cameraY = 0;
         }
 
-        game.getCamera().position.set(cameraX, cameraY, 0);
-        game.getCamera().update();
+        else if (cameraY > worldHeight) {
+            cameraY = worldHeight;
+        }
+
+        camera.position.set(cameraX, cameraY, 0);
+        camera.update();
 
     }
 
@@ -104,19 +122,19 @@ public class GameScreen implements Screen {
         float playerX = game.getPlayer().getX();
         float playerY = game.getPlayer().getY();
 
-        if (playerX < LIMI_LEFT) {
-            playerX = LIMI_LEFT;
+        if (playerX < 0) {
+            playerX = 0;
         }
-        else if (playerX > LIMI_RIGHT) {
-            playerX = LIMI_RIGHT;
-        }
-
-        else if (playerY < LIMI_DOWN) {
-            playerY = LIMI_DOWN;
+        else if (playerX > worldWidth) {
+            playerX = worldWidth;
         }
 
-        else if (playerY > LIMI_UP) {
-            playerY = LIMI_UP;
+        else if (playerY < 0) {
+            playerY = 0;
+        }
+
+        else if (playerY > worldHeight) {
+            playerY = worldHeight;
         }
 
         game.getPlayer().setPosition(playerX, playerY);
@@ -125,18 +143,19 @@ public class GameScreen implements Screen {
 
     public void draw() {
         ScreenUtils.clear(0, 0, 0, 1);
-        game.getViewport().apply();
-        game.getBatch().setProjectionMatrix(game.getViewport().getCamera().combined);
-        game.getBatch().begin();
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        mapRenderer.setView(camera);
+        mapRenderer.render();
+        batch.begin();
 
-        game.getBatch().draw(background, 0, 0, game.getViewport().getWorldWidth(), game.getViewport().getWorldHeight());
-        game.getPlayer().draw(game.getBatch());
+        game.getPlayer().draw(batch);
 
-        game.getBatch().end();
+        batch.end();
     }
     @Override
     public void resize(int width, int height) {
-        game.getViewport().update(width, height, true);
+        viewport.update(width, height, true);
     }
 
     @Override
@@ -157,6 +176,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         game.dispose();
-        background.dispose();
+        mapRenderer.dispose();
+        map.dispose();
     }
 }

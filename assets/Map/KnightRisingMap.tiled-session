@@ -1,0 +1,96 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "gameMap.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "#gameMap": {
+            "scaleInEditor": 1
+        },
+        "Bridge_All.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Foam.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "GoldMine_Active.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Rocks_04.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilemap_Elevation.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilemap_Flat.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tree.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Water.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "gameMap.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 612,
+                "y": 433.5
+            }
+        },
+        "grass.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/Hacks/OneDrive/Images/assets/mystic_woods_free_2.2/sprites/tilesets",
+    "last.imagePath": "C:/Users/Hacks/OneDrive/Images/assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Gold Mine",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "gameMap.tmx",
+        "Tilemap_Flat.tsx",
+        "Tilemap_Elevation.tsx",
+        "Water.tsx",
+        "Rocks_04.tsx",
+        "Foam.tsx",
+        "Bridge_All.tsx",
+        "Tree.tsx",
+        "GoldMine_Active.tsx"
+    ],
+    "project": "KnightRisingMap.tiled-project",
+    "recentFiles": [
+        "GoldMine_Active.tsx",
+        "Tree.tsx",
+        "Bridge_All.tsx",
+        "Foam.tsx",
+        "Rocks_04.tsx",
+        "Water.tsx",
+        "Tilemap_Elevation.tsx",
+        "Tilemap_Flat.tsx",
+        "gameMap.tmx",
+        "grass.tsx"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFilter": "Tous les Fichiers (*)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 0
+}

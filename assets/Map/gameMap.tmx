@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="1">
+ <tileset firstgid="1" source="Tilemap_Flat.tsx"/>
+ <tileset firstgid="161" source="Tilemap_Elevation.tsx"/>
+ <tileset firstgid="289" source="Water.tsx"/>
+ <tileset firstgid="293" source="Rocks_04.tsx"/>
+ <tileset firstgid="421" source="Bridge_All.tsx"/>
+ <tileset firstgid="469" source="Tree.tsx"/>
+ <tileset firstgid="901" source="GoldMine_Active.tsx"/>
+ <tileset firstgid="925" source="Foam.tsx"/>
+ <layer id="1" name="BottomLayer" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJyllU1SwkAQhSeK3sCfuDOwisSd2wAeIcgRUPT+B7Cn6Fe+vOohqXLxFRmmh68nL0OqlNLVDJ6rlJrq73POGubayde3xp1xP4OluVbuhftS/YPxaNTGi7E2OqM1ngJvG8Be3rPWtBP+ndEbr+7l+r4AvCvy8jzWai/sPRgD7ZfrhwLsbpxSHffC3tq/g5fr8/Xe+PCaneczyJ7Zi/qDk9fdLM7U5NV8N9Izfqd1Z57feg+8Z+TF87h3b4szXZAvvNyvujcyHz1fur4n747uMebf3csZaCY61nud0fre7zO8naP54nxFz0F0/iJ3BvNwwguifLeBl/vk/DZp/D/SUA/qjPLH+eXnV885+uT89uTlvWfg1HoeY79wqXdL7lLe2C/8U8/HnHzhrSVfzlu9Oh+Np/KFtwvyxRjvCXijPHWs51d74/tcymsp3ijPqXy1N76O8uJ38qV8QSnfUh6cP1in8bv4P/mW8iiNl9X4/M5dn71H49P4Mk7GN431U+dPaXx+dR41vDZf/xi/+VJsYg==
+  </data>
+ </layer>
+ <layer id="3" name="TopLayer" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzV1dtKAlEYhuElXofeTdqNlN6IaZmb3OT2tNJs40mdKNRJ3odbqEzQSsgyeg9mQIKls5Yj6gcPozDON0t++IVYb1wGt/F9xyGEB17sOuzrcC+4Z4+uffjgV+gNOIU4QBAhHOLIuczbyjN7jjAdx4ggihjikt4mWmijgy56mu9wQkcCSaSQxqmk9xkveEUfbxho9mboyCKHPAooSnqHGOEdH/jEWLNXJV+Y4Bs/mOJ3zv0PzNmjTTOukic6G2votTNWZ/qMc57jAiXjairjUvF/sDrTFZ57hWvcGFfTLaqKvdsy07O544z3K5wz2a6o8bmu0Wt19+juCjP/99Gyz9vUWNm7dvxmk/MH+ShWcA==
+  </data>
+ </layer>
+ <layer id="5" name="TreesLayer" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1MsRwVAUh/GbLESa8GgCacKjj6AJjyaIJoImPHbEnmSX0IFPB8Zc/4U4M7/t/eaexTHG7pwcyw/+4Lx2dEaCi3BfOa0CdzyE3YprjIcqfFfXrdGqo4GmsNui1UYHgbDbpdVDH4Mvd0PeH2KEsfCPE1pTzDAXdhe0loiwEnZjWmtssBV2d7T2OOBoofvuzbvSuiFFZqH7v3maKcPN+2Se8Q4k5A==
+  </data>
+ </layer>
+</map>

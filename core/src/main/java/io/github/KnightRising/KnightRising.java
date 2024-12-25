@@ -18,21 +18,15 @@ import static com.badlogic.gdx.Gdx.gl;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class KnightRising extends Game {
 
-    private SpriteBatch batch;
+
     private Sprite player;
     private TextureAtlas atlas;
-    private OrthographicCamera camera;
-    private FitViewport viewport;
-    final float VIEWPORT_WIDTH = 500f;
-    final float VIEWPORT_HEIGHT = 500f;
+
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
         atlas = new TextureAtlas(Utils.getInternalPath("atlas/player_atlas.atlas"));
         player = new Sprite(atlas.findRegion("player_idle_1"));
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        viewport = new FitViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera);
         setScreen(new GameScreen(this));
     }
 
@@ -41,7 +35,6 @@ public class KnightRising extends Game {
     }
 
     public void dispose() {
-        batch.dispose();
         atlas.dispose();
     }
 
@@ -49,15 +42,5 @@ public class KnightRising extends Game {
         return this.player;
     }
 
-    public FitViewport getViewport() {
-        return this.viewport;
-    }
 
-    public OrthographicCamera getCamera() {
-        return this.camera;
-    }
-
-    public SpriteBatch getBatch() {
-        return this.batch;
-    }
 }
