@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -27,15 +30,17 @@ public class GameScreen implements Screen {
     float worldWidth;
     float worldHeight;
     final float unitScale = 1f / 32f;
+    private MapLayer layerCollision;
 
 
 
     public GameScreen(KnightRising game) {
         this.game = game;
         this.batch = new SpriteBatch();
-        this.map = new TmxMapLoader().load("Map/gameMap.tmx");
 
+        this.map = new TmxMapLoader().load("Map/gameMap.tmx");
         this.mapRenderer = new OrthogonalTiledMapRenderer(map);
+        this.layerCollision = map.getLayers().get("collision");
 
         worldHeight = map.getProperties().get("height", Integer.class) * 32f;
         worldWidth = map.getProperties().get("width", Integer.class) * 32f;
@@ -52,30 +57,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float v) {
-        input();
+        game.getPlayer().update(Gdx.graphics.getDeltaTime());
         logic();
         draw();
 
     }
 
-    private void input() {
-        float speed = 50f;
-        float delta = Gdx.graphics.getDeltaTime();
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            this.game.getPlayer().translateX(speed * delta);
-        }
-        else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            this.game.getPlayer().translateX(-speed * delta);
-        }
-
-        else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            this.game.getPlayer().translateY(speed * delta);
-        }
-
-        else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            this.game.getPlayer().translateY(-speed * delta);}
-    }
 
     public void logic() {
         updateCamera();

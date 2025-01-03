@@ -40,7 +40,7 @@ public class Perspective implements ApplicationListener {
 
         batch = new ModelBatch();
         builder = new ModelBuilder();
-        texture = new Texture(Utils.getInternalPath("mushroom.png"));
+        texture = new Texture(Utils.getInternalPath("background.png"));
         Material material = new Material(new TextureAttribute(TextureAttribute.Diffuse, texture));
         int attributes = VertexAttributes.Usage.Position | VertexAttributes.Usage.TextureCoordinates;
         Model model = builder.createBox(3, 3, 3, material, attributes);

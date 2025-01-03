@@ -45,15 +45,16 @@
             "scaleInEditor": 1
         },
         "Water.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "gameMap.tmx": {
             "scale": 1,
-            "selectedLayer": 1,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 612,
-                "y": 433.5
+                "x": 483,
+                "y": 502.5
             }
         },
         "grass.tsx": {

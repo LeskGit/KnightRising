@@ -19,14 +19,14 @@ import static com.badlogic.gdx.Gdx.gl;
 public class KnightRising extends Game {
 
 
-    private Sprite player;
+    private Player player;
     private TextureAtlas atlas;
 
 
     @Override
     public void create() {
         atlas = new TextureAtlas(Utils.getInternalPath("atlas/player_atlas.atlas"));
-        player = new Sprite(atlas.findRegion("player_idle_1"));
+        player = new Player(atlas);
         setScreen(new GameScreen(this));
     }
 
@@ -38,7 +38,7 @@ public class KnightRising extends Game {
         atlas.dispose();
     }
 
-    public Sprite getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
