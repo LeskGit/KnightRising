@@ -18,8 +18,7 @@ public class Player extends Sprite {
     public Player(TextureAtlas atlas) {
         super(atlas.findRegion("player_idle_1"));
         this.atlas = atlas;
-        playerRect = new Rectangle();
-        playerRect.set(getX(), getY(), getWidth(), getHeight());
+        playerRect = getBoundingRectangle();
         this.speed = 100f;
     }
 

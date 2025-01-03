@@ -10,11 +10,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.awt.*;
 
 import static com.badlogic.gdx.Gdx.gl;
 
@@ -30,7 +34,9 @@ public class GameScreen implements Screen {
     float worldWidth;
     float worldHeight;
     final float unitScale = 1f / 32f;
-    private MapLayer layerCollision;
+    private MapObjects layerCollision;
+    private float oldX;
+    private float oldY;
 
 
 
@@ -40,7 +46,8 @@ public class GameScreen implements Screen {
 
         this.map = new TmxMapLoader().load("Map/gameMap.tmx");
         this.mapRenderer = new OrthogonalTiledMapRenderer(map);
-        this.layerCollision = map.getLayers().get("collision");
+        this.layerCollision = map.getLayers().get("collision").getObjects();
+
 
         worldHeight = map.getProperties().get("height", Integer.class) * 32f;
         worldWidth = map.getProperties().get("width", Integer.class) * 32f;
@@ -52,7 +59,9 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         this.game.getPlayer().setScale(1.3f);
-        this.game.getPlayer().setPosition(worldWidth/2, worldHeight/2);
+        this.game.getPlayer().setPosition(worldWidth/3, worldHeight/2);
+        this.oldX = this.game.getPlayer().getX();
+        this.oldY = this.game.getPlayer().getY();
     }
 
     @Override
@@ -67,7 +76,9 @@ public class GameScreen implements Screen {
     public void logic() {
         updateCamera();
         cameraLimit();
+        collision();
         playerLimit();
+
     }
 
     private void updateCamera() {
@@ -79,6 +90,21 @@ public class GameScreen implements Screen {
         camera.update();
 
 
+    }
+
+
+
+    private void collision() {
+        for (MapObject object : this.layerCollision) {
+            if (object instanceof RectangleMapObject) {
+                Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
+                if (game.getPlayer().getPlayerRect().overlaps(rectangle)) {
+                      game.getPlayer().setPosition(this.oldX, this.oldY);
+                }
+            }
+        }
+        this.oldX = this.game.getPlayer().getX();
+        this.oldY = this.game.getPlayer().getY();
     }
 
     private void cameraLimit() {
@@ -137,6 +163,7 @@ public class GameScreen implements Screen {
         batch.begin();
 
         game.getPlayer().draw(batch);
+
 
         batch.end();
     }

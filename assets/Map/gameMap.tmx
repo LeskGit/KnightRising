@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="13">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="14">
  <tileset firstgid="1" source="Tilemap_Flat.tsx"/>
  <tileset firstgid="161" source="Tilemap_Elevation.tsx"/>
  <tileset firstgid="289" source="Water.tsx"/>
@@ -29,10 +29,11 @@
   <object id="5" x="353.5" y="128" width="124.5" height="63.5"/>
   <object id="6" x="385" y="192.5" width="94.5" height="95"/>
   <object id="7" x="480" y="224.5" width="62" height="63"/>
-  <object id="8" x="418" y="288" width="190.5" height="36"/>
+  <object id="8" x="418" y="288" width="190.5" height="31"/>
   <object id="9" x="512.5" y="376.5" width="126.5" height="134.5"/>
   <object id="10" x="480" y="512" width="159.5" height="62.5"/>
   <object id="11" x="513" y="576.5" width="95" height="62.5"/>
   <object id="12" x="481.5" y="575.5" width="31" height="31"/>
+  <object id="13" x="448" y="375" width="63" height="9"/>
  </objectgroup>
 </map>
