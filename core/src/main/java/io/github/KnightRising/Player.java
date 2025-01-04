@@ -7,20 +7,32 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import jdk.internal.foreign.SystemLookup;
 
 public class Player extends Sprite {
 
     private TextureAtlas atlas;
     private float speed;
-    private Rectangle playerRect;
+
+    private Polygon playerPolygon;
 
     public Player(TextureAtlas atlas) {
         super(atlas.findRegion("player_idle_1"));
-        this.atlas = atlas;
-        playerRect = getBoundingRectangle();
+        float[] vertices = {
+            15f, 0,                        // Bas gauche
+            getWidth() * 0.7f, 0,               // Bas droite
+            getWidth() * 0.7f, getHeight()*0.6f,     // Haut droite
+            15f, getHeight() * 0.6f              // Haut gauche
+        };
+        playerPolygon = new Polygon(vertices);
+        playerPolygon.setPosition(getX(), getY());
+
         this.speed = 100f;
     }
+
+
 
     public float getSpeed() {
         return this.speed;
@@ -30,8 +42,8 @@ public class Player extends Sprite {
         this.speed = speed;
     }
 
-    public Rectangle getPlayerRect() {
-        return this.playerRect;
+    public Polygon getPlayerPolygon() {
+        return this.playerPolygon;
     }
 
 
@@ -49,7 +61,7 @@ public class Player extends Sprite {
             this.setX(this.getX() + speed * delta);
         }
 
-        playerRect.set(getX(), getY(), getWidth(), getHeight());
+        playerPolygon.setPosition(getX(), getY());
     }
 
 

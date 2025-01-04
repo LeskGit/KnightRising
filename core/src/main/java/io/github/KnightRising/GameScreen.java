@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -96,16 +100,21 @@ public class GameScreen implements Screen {
 
     private void collision() {
         for (MapObject object : this.layerCollision) {
-            if (object instanceof RectangleMapObject) {
-                Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
-                if (game.getPlayer().getPlayerRect().overlaps(rectangle)) {
-                      game.getPlayer().setPosition(this.oldX, this.oldY);
+            if (object instanceof PolygonMapObject) {
+                Polygon obstaclePolygon = ((PolygonMapObject) object).getPolygon();
+                if (Intersector.overlapConvexPolygons(game.getPlayer().getPlayerPolygon(), obstaclePolygon)) {
+                    // Collision détectée
+                    game.getPlayer().setPosition(this.oldX, this.oldY);
+                    game.getPlayer().getPlayerPolygon().setPosition(this.oldX, this.oldY);
+                    System.out.println("collision");
                 }
             }
         }
-        this.oldX = this.game.getPlayer().getX();
-        this.oldY = this.game.getPlayer().getY();
+        // Sauvegarder la position actuelle
+        this.oldX = game.getPlayer().getX();
+        this.oldY = game.getPlayer().getY();
     }
+
 
     private void cameraLimit() {
         float cameraX = camera.position.x;
@@ -160,6 +169,12 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         mapRenderer.setView(camera);
         mapRenderer.render();
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.polygon(game.getPlayer().getPlayerPolygon().getTransformedVertices());
+        shapeRenderer.end();
+
         batch.begin();
 
         game.getPlayer().draw(batch);
